@@ -1,4 +1,6 @@
 <script>
+    import { each } from "svelte/internal";
+
     let value = " "
     let response = []
     let loading = false
@@ -8,13 +10,16 @@
 
     $: if (value.length > 2){
         loading = true
-        fetch(`https://gateway.marvel.com:443/v1/public/characters?name=${value}&ts=1&apikey=8479630058c2db43f533ff3d17fb5646&hash=a8500480dfb36b9dda96150c305af8d9`)
+        fetch(`https://gateway.marvel.com:443/v1/public/characters?ts=1&name=${value}&apikey=8479630058c2db43f533ff3d17fb5646&hash=a8500480dfb36b9dda96150c305af8d9`)
         .then(res => res.json())
         .then(json => {
-            response = json.Search || []
-            loading = false
+            response = json.data.results || []
         })
+        loading = false
     }
+    function buscar(){
+    loading = true
+}
 </script>
 
 <input
@@ -23,12 +28,35 @@
     on:input={handleInput} 
 />
 
+<button on:click={buscar}>
+    Buscar 
+</button>
+
 {#if loading}
-<strong>Cargando...</strong>>
+    <strong>Cargando...</strong>
+{:else}
+    {#if response.length > 0}
+        {#each response as personaje}
+        <div>
+            <strong>{personaje.name}</strong>
+        </div>
+        <div>
+            {personaje.description}
+        </div>
+            <article>
+                <img alt = {personaje.description} src = {personaje.thumbnail.path}.{personaje.thumbnail.extension}/>
+            </article>     
+        {/each}
+        {:else}
+            <strong>Sin resultados</strong>
+        {/if}
 {/if}
 
-{
-    response.length > 0
-        ? 'Se encontro el heroe'
-        : 'No se encontro al heroe'
-}
+<style>
+    article{
+        border: 1px solid #eee;
+        border-radius: 4px;
+        padding: 16px;
+    }
+</style>
+
