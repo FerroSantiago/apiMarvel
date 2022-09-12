@@ -78,4 +78,8 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+  img{
+    width: 50%;
+    height: 50%;
+  }
 }
