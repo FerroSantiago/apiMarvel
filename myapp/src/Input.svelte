@@ -14,9 +14,10 @@
             .then((res) => res.json())
             .then((json) => {
                 response = json.data.results || [];
+                loading = false;
                 console.log(response);
             });
-        loading = false;
+        
     }
     function buscar() {
         loading = true;
@@ -32,7 +33,7 @@
 {:else if response.length > 0}
     {#each response as personaje}
         <div>
-            <strong>{personaje.name}</strong>
+            <strong class="titulos">{personaje.name}</strong>
         </div>
         <div>
             {personaje.description}
@@ -47,11 +48,3 @@
 {:else}
     <strong>Sin resultados</strong>
 {/if}
-
-<style>
-    article {
-        border: 1px solid #eee;
-        border-radius: 4px;
-        padding: 16px;
-    }
-</style>
