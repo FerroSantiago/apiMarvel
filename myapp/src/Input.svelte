@@ -1,8 +1,9 @@
 <script>
     import { each } from "svelte/internal";
+    import Carga from "./Carga.svelte";
 
     let value = "";
-    let response = [];
+    let response = undefined;
     let loading = false;
 
     const handleInput = (event) => (value = event.target.value);
@@ -29,22 +30,25 @@
 <button on:click={buscar}> Buscar </button>
 
 {#if loading}
-    <strong>Cargando...</strong>
-{:else if response.length > 0}
-    {#each response as personaje}
-        <div>
-            <strong class="titulos">{personaje.name}</strong>
-        </div>
-        <div>
-            {personaje.description}
-        </div>
-        <article>
-            <img
-                alt={personaje.description}
-                src="{personaje.thumbnail.path}.{personaje.thumbnail.extension}"
-            />
-        </article>
-    {/each}
-{:else}
-    <strong>Sin resultados</strong>
+    <Carga></Carga>
+{:else }
+    {#if response && response.length > 0}
+        {#each response as personaje}
+            <div>
+                <br><strong class="titulos">{personaje.name}</strong>
+            </div>
+            <div>
+                {personaje.description}
+            </div>
+            <article>
+                <img
+                    alt={personaje.description}
+                    src="{personaje.thumbnail.path}.{personaje.thumbnail.extension}"
+                />
+            </article>
+        {/each}
+    {/if}
+    {#if response && response.length == 0}
+        <strong>Sin resultados...</strong>
+    {/if}
 {/if}
