@@ -103,8 +103,8 @@ div{
   width: 60%;
   height: 60%;
   border: solid 4px transparent;
-  border-top-color: #f1dd08;
-  border-left-color: #f1dd08;
+  border-top-color: #ff3300d2;
+  border-left-color: #722929;
   border-radius: 50%;
   animation: loader 1.4s linear infinite;
 }
