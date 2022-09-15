@@ -82,4 +82,8 @@ button:focus-visible {
     width: 50%;
     height: 50%;
   }
+  .logoM{
+    width: 200px;
+    height: auto;
+  }
 }
