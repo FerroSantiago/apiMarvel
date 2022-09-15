@@ -1,7 +1,7 @@
 <script>
     import { each } from "svelte/internal";
 
-    let value = " "
+    let value = ""
     let response = []
     let loading = false
 
@@ -9,7 +9,7 @@
         value = event.target.value
 
     $: if(loading == true){
-        fetch(`https://gateway.marvel.com:443/v1/public/characters?ts=1&name=${value}&apikey=8479630058c2db43f533ff3d17fb5646&hash=a8500480dfb36b9dda96150c305af8d9`)
+        fetch(`https://gateway.marvel.com:443/v1/public/characters?ts=1&name=${value.trim()}&apikey=bfaa7b237bb944372278afba5cb59bad&hash=69bb2ecd29ffccb8c99ff39fff85fb16`)
         .then(res => res.json())
         .then(json => {
             response = json.data.results || []
@@ -19,7 +19,7 @@
     }
     function buscar(){
         loading = true
-}
+    }
 </script>
 
 <input
